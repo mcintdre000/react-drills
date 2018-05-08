@@ -3,6 +3,19 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      userInput: '',
+    }
+  }
+
+  updateInput(val) {
+    this.setState({
+      userInput: val
+    });
+  }
   render() {
     return (
       <div className="App">
@@ -13,6 +26,8 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
+        <input className="inputBox" type="text" onChange={event => this.updateInput(event.target.value)}></input>
+        <p>{this.state.userInput}</p>
       </div>
     );
   }
