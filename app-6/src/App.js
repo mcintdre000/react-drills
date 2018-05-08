@@ -1,18 +1,43 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Todo from './Todo';
+
 
 class App extends Component {
+  constructor(){
+    super();
+
+    this.state = {
+      userInput: '',
+      toDoList: []
+    }
+    this.updateList = this.updateList.bind(this);
+  }
+
+  updateUserInput(val) {
+    this.setState({
+      userInput: val
+    });
+  }
+
+  updateList() {
+    this.setState({
+      toDoList: [...this.state.toDoList,this.state.userInput],
+      userInput: ''
+    });
+  }
   render() {
+    let toDoList = this.state.toDoList.map((e,i)=>{
+      return <Todo key={i} task={e}/>
+    })
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+       <h1>My to-do list:</h1>
+       <div>
+         <input value={this.state.userInput} placeholder="Enter new task" className="inputBox" onChange={event => this.updateUserInput(event.target.value)}></input>
+         <button className = "confirmationButton" onClick={this.updateList}> Add </button>
+       </div>
+       <br />
+       { toDoList }
       </div>
     );
   }
